@@ -21,7 +21,7 @@ function App() {
   };
 
   return (
-    <div className="flex justify-center items-center flex-col mt-24">
+    <div className="flex justify-center items-center flex-col mt-24 card shadow-sm w-96 mx-auto">
       <h1 className="text-4xl mb-5 text-violet-600 font-bold">Todos</h1>
       <form onSubmit={hanldeSubmit}>
         <input
