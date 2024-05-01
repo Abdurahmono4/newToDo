@@ -1,30 +1,28 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 function dataFromLocal() {
-  const data = localStorage.getItem("todos");
-  if (data) {
-    return JSON.parse(data);
-  }
-  return [];
+  return (
+    JSON.parse(localStorage.getItem("todos")) || {
+      todos: [],
+    }
+  );
 }
-const initialState = {
-  todos: dataFromLocal(),
-};
 
 export const todosSlice = createSlice({
   name: "todos",
-  initialState,
+  initialState: dataFromLocal(),
   reducers: {
     addTodo: (state, { payload }) => {
       state.todos.push(payload);
-      localStorage.setItem("todos", JSON.stringify(state.todos));
-      return state;
+      localStorage.setItem("todos", JSON.stringify(state));
     },
     removeTodo: (state, { payload }) => {
-      state.todos = state.todos.filter((todo) => todo.id !== payload.id);
+      state.todos = state.todos.filter((todo) => {
+        return todo.id !== payload;
+      });
     },
   },
 });
 
-export const { addTodo, removeTodo } = todosSlice.actions;
+export const { removeTodo, addTodo } = todosSlice.actions;
 export default todosSlice.reducer;
